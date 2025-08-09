@@ -1,1 +1,147 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "primeicons/primeicons.css";
+
+.libertinus-sans-regular {
+    font-family: "Libertinus Sans", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.libertinus-sans-bold {
+    font-family: "Libertinus Sans", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.libertinus-sans-regular-italic {
+    font-family: "Libertinus Sans", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
+
+:root {
+    --body-bg: #F6F4DE;
+    --body-text-color: #F6F4DE;
+    --card-border: 1px solid var(--border-color);
+    --card-bg: var(--p-surface-0);
+    --border-color: var(--p-surface-200);
+    --text-color: #F6F4DE;
+    --overlay-background: #ffffff;
+    --primary-color: #02343F;
+    --sedond--primary-color: #044451;
+    --thrid--primary-color: #F6F4DE;
+}
+
+:root[class='p-dark'] {
+    --body-bg: var(--p-surface-950);
+    --body-text-color: var(--p-surface-50);
+    --card-border: 1px solid transparent;
+    --card-bg: var(--p-surface-900);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --text-color: var(--p-surface-0);
+    --overlay-background: var(--p-surface-900);
+}
+
+html {
+    font-size: 14px;
+}
+
+body {
+    margin: 0px;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: var(--body-bg);
+    font-family: "Libertinus Sans", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.header {
+    background-color: var(--sedond--primary-color);
+    color: var(--text-color);
+    top: 0;
+    width: 100%;
+    height: 50px;
+}
+
+.p-button {
+    background: var(--sedond--primary-color) !important;
+    border: 1px solid var(--thrid--primary-color) !important;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.p-button-icon-only {
+    color: var(--thrid--primary-color) !important;
+}
+
+.hide {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 0.33s, opacity 0.33s linear;
+}
+
+.show {
+    width: 200px;
+    margin-left: 20px;
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.6s linear;
+}
+
+.write-it-menu {
+    width: 200px;
+    margin-left: 20px;
+
+    .p-menu-list {
+        background-color: var(--primary-color) !important;
+
+        .p-menu-submenu-label {
+            color: var(--text-color);
+        }
+
+        .p-menu-item {
+            padding-bottom: 5px;
+        }
+
+        .p-menu-item:hover a {
+            background: #0A414D;
+            color: var(--text-color);
+        }
+
+        .p-menu-item.p-focus {
+
+            .p-menu-item-content,
+            .p-menu-item-icon {
+                background: #0A414D;
+                color: var(--text-color);
+            }
+        }
+    }
+
+    .p-menu-item-content {
+        color: var(--text-color);
+
+        .p-menu-item-icon {
+            color: var(--text-color);
+        }
+    }
+
+    .p-menu-item:not(.p-disabled) .p-menu-item-content:hover .p-menu-item-icon {
+        color: var(--text-color);
+    }
+}
+
+
+.card {
+    background: var(--card-bg);
+    border: var(--card-border);
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}

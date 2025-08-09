@@ -1,0 +1,4 @@
+<p-button icon="pi pi-bars" (click)="showHideMenu()"/>
+   <div class="flex justify-center write-it-menu" [class.show]="isShowHideBtn" [class.hide]="!isShowHideBtn">
+    <p-menu [model]="items"/>
+</div>
