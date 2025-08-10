@@ -21,14 +21,16 @@ export class MenuComponent implements OnInit {
                 items: [
                     {
                         label: 'New',
-                        icon: 'pi pi-plus'
+                        icon: 'pi pi-plus',
+                        routerLink: '/'
                     },
                     {
                         label: 'Search',
-                        icon: 'pi pi-search'
+                        icon: 'pi pi-search',
+                        routerLink: '/'
                     },
-                    {label: 'Save', icon: 'pi pi-save'},
-                    { label: 'History', icon: 'pi pi-history' },
+                    {label: 'Save', icon: 'pi pi-save',routerLink: '/'},
+                    { label: 'History', icon: 'pi pi-history',routerLink: '/' },
                 ]
             },
             {
@@ -36,12 +38,14 @@ export class MenuComponent implements OnInit {
                 items: [
                     {
                         label: 'Settings',
-                        icon: 'pi pi-cog'
+                        icon: 'pi pi-cog',
+                        routerLink: '/'
                     },
-                   { label: 'Login', icon: 'pi pi-sign-in' },
+                   { label: 'Login', icon: 'pi pi-sign-in',routerLink: '/login' },
                     {
                         label: 'Logout',
-                        icon: 'pi pi-sign-out'
+                        icon: 'pi pi-sign-out',
+                        routerLink: '/'
                     }
                 ]
             }

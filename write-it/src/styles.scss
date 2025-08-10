@@ -22,6 +22,23 @@
     font-style: italic;
 }
 
+.libertinus-sans-regular {
+    font-family: "Libertinus Sans", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.libertinus-sans-bold {
+    font-family: "Libertinus Sans", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.libertinus-sans-regular-italic {
+    font-family: "Libertinus Sans", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+}
 
 :root {
     --body-bg: #F6F4DE;
@@ -32,7 +49,7 @@
     --text-color: #F6F4DE;
     --overlay-background: #ffffff;
     --primary-color: #02343F;
-    --sedond--primary-color: #044451;
+    --second--primary-color: #044451;
     --thrid--primary-color: #F6F4DE;
 }
 
@@ -50,27 +67,47 @@ html {
     font-size: 14px;
 }
 
-body {
+body{
     margin: 0px;
     min-height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
     background-color: var(--body-bg);
-    font-family: "Libertinus Sans", sans-serif;
+    font-family: "Mulish", sans-serif;
+    font-optical-sizing: auto;
     font-weight: 400;
+    font-style: normal;
     font-style: normal;
 }
 
+body.write-it-login {
+    margin: 0px;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: var(--primary-color);
+    font-family: "Mulish", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-style: normal;
+}
+
+
 .header {
-    background-color: var(--sedond--primary-color);
+    background-color: var(--second--primary-color);
     color: var(--text-color);
     top: 0;
     width: 100%;
-    height: 50px;
+    height: 30px;
+}
+
+.header-login {
+   background-color: var(--thrid--primary-color);
 }
 
 .p-button {
-    background: var(--sedond--primary-color) !important;
+    background: var(--second--primary-color) !important;
     border: 1px solid var(--thrid--primary-color) !important;
     margin-top: 20px;
     margin-left: 20px;
@@ -95,9 +132,9 @@ body {
 }
 
 .write-it-menu {
-    width: 200px;
+    width: 100px;
     margin-left: 20px;
-
+    margin-top: 5px;
     .p-menu-list {
         background-color: var(--primary-color) !important;
 
@@ -115,7 +152,6 @@ body {
         }
 
         .p-menu-item.p-focus {
-
             .p-menu-item-content,
             .p-menu-item-icon {
                 background: #0A414D;
