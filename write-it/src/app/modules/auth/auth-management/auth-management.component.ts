@@ -1,5 +1,6 @@
 import { Component, DOCUMENT, Inject, OnInit, Renderer2 } from '@angular/core';
 import { LoginComponent } from '../login/login-component';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'write-it-auth-management',

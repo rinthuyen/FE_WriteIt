@@ -12,10 +12,8 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-
   }
 
   signup(){
-    
   }
 }

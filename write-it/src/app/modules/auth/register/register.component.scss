@@ -33,11 +33,9 @@
     }
 
     .btn-login-container {
-        margin-top: 20px;
-        margin-left: 60px;
-        display: flex;
-
-        .btn-login {
+        .btn-signup {
+             display: flex;
+             justify-content: center;
             ::ng-deep .p-button {
                 color: #F6F4DE !important;
                 width: 90px;
@@ -45,19 +43,6 @@
                 font-weight: revert;
                 font-size: 18px;
                 border-radius: 10px;
-            }
-        }
-
-        .btn-signup {
-            ::ng-deep .p-button {
-                background-color: #F6F4DE !important;
-                color: #02343F !important;
-                width: 90px;
-                height: 50px;
-                font-weight: revert;
-                font-size: 18px;
-                border-radius: 10px;
-                border-color: #02343F !important;
             }
         }
     }

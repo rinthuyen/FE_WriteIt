@@ -67,12 +67,53 @@ html {
     font-size: 14px;
 }
 
+@keyframes smoothBackgroundHeaderLogin {
+  0% {
+        background-color: var(--primary-color);
+  }
+  100% {
+    background-color: var(--thrid--primary-color);
+  }
+}
+
+@keyframes smoothBackgroundLogin {
+  0% {
+       background-color: var(--thrid--primary-color);
+  }
+  100% {
+     background-color: var(--second--primary-color);
+  }
+}
+
+@keyframes smoothBackgroundMain {
+  0% {
+    background-color: var(--second--primary-color);
+  }
+  100% {
+    background-color: var(--thrid--primary-color);
+  }
+}
+
+
+@keyframes smoothBackgroundHeaderMain {
+  0% {
+    background-color: var(--primary-color);
+  }
+  100% {
+       background-color: var(--second--primary-color);
+  }
+}
+
+
+
+
 body{
     margin: 0px;
     min-height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    background-color: var(--body-bg);
+    //background-color: var(--body-bg);
+    animation: smoothBackgroundMain 0.5s ease-in-out forwards;
     font-family: "Mulish", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
@@ -85,7 +126,7 @@ body.write-it-login {
     min-height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    background-color: var(--primary-color);
+    animation: smoothBackgroundLogin 1s ease-in-out forwards;
     font-family: "Mulish", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
@@ -95,7 +136,8 @@ body.write-it-login {
 
 
 .header {
-    background-color: var(--second--primary-color);
+    animation: smoothBackgroundHeaderMain 0.5s ease-in-out forwards;
+    //background-color: var(--second--primary-color);
     color: var(--text-color);
     top: 0;
     width: 100%;
@@ -103,7 +145,7 @@ body.write-it-login {
 }
 
 .header-login {
-   background-color: var(--thrid--primary-color);
+   animation: smoothBackgroundHeaderLogin 1s ease-in-out forwards;
 }
 
 .p-button {
