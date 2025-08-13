@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Button, ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'write-it-register',
@@ -8,7 +9,12 @@ import { InputTextModule } from 'primeng/inputtext';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
+  ngOnInit(): void {
+     
+  }
+
   signup(){
+
   }
 }

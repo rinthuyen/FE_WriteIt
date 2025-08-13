@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { Button, ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'write-it-login',
   imports: [ButtonModule,InputTextModule,Button],
@@ -8,6 +9,10 @@ import { InputTextModule } from 'primeng/inputtext';
   styleUrl: './login-component.scss'
 })
 export class LoginComponent implements OnInit {
+  constructor(
+   private  authService:AuthService
+  ){}
+
   ngOnInit(): void {
   }
 
@@ -15,5 +20,7 @@ export class LoginComponent implements OnInit {
   }
 
   signup(){
+    this.authService.setChangeFormSubject("signup");
+   // this.authService.completeChangeFormSubject();
   }
 }

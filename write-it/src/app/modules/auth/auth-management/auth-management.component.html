@@ -5,7 +5,11 @@
         </span>
     </div>
     <div>
-    <write-it-login/>
-     <!-- <write-it-register/> -->
+        <ng-container *ngIf="isSignUp; else login">
+            <write-it-register />
+        </ng-container>
+        <ng-template #login>
+            <write-it-login />
+        </ng-template>
     </div>
 </div>
