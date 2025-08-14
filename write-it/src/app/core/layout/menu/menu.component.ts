@@ -41,7 +41,7 @@ export class MenuComponent implements OnInit {
                         icon: 'pi pi-cog',
                         routerLink: '/'
                     },
-                    { label: 'Login', icon: 'pi pi-sign-in',routerLink: '/login' },
+                    { label: 'Login', icon: 'pi pi-sign-in',routerLink: '/auth' },
                     {
                         label: 'Logout',
                         icon: 'pi pi-sign-out',

@@ -10,11 +10,9 @@ import { AuthService } from '../services/auth.service';
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent implements OnInit {
-  ngOnInit(): void {
-     
+  ngOnInit(): void {  
   }
 
   signup(){
-
   }
 }

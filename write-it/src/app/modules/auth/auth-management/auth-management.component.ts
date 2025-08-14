@@ -14,23 +14,22 @@ import { CommonModule } from '@angular/common';
 export class AuthManagementComponent implements OnInit, OnDestroy {
   signup = "signup";
   isSignUp: boolean;
+
   constructor(private renderer: Renderer2,
     @Inject(DOCUMENT) private document: Document,
     private authService: AuthService) {
     this.isSignUp = false;
   }
-
-
+  
   private destroy$ = new Subject<void>();
-
+  
   ngOnInit(): void {
     this.modifyIndexHtml();
     this.authService.data$.pipe(takeUntil(this.destroy$)).subscribe(form => {
-      console.log(form);
       this.isSignUp = form === this.signup;
     })
   }
-
+  
   ngOnDestroy(): void {
     this.destroy$.next();
   }

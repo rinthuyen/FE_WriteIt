@@ -35,6 +35,6 @@ export class App implements OnInit {
   }
 
   isEndpointLogin() {
-    return this.endpoint === '/login';
+    return this.endpoint === '/auth';
   }
 }

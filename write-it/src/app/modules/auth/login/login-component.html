@@ -1,17 +1,38 @@
 <div class="login">
-    <div class="title">
-  <span style="color: #02343F; font-size: 25px; width: 100%;">Write it !</span>
-    </div>
+  <div class="title">
+    <span style="color: #02343F; font-size: 25px; width: 100%;">Write it !</span>
+  </div>
+  <form [formGroup]="loginForm" class="flex flex-col gap-4 w-full sm:w-56">
     <div class="input-container">
-    <input class="write-it-input-login" type="text" pInputText />
-    <input class="write-it-input-login" type="text" pInputText />
+      <div style="margin-top: 10px;">
+        <input class="write-it-input-login" placeholder="Username" formControlName="username" type="text" pInputText
+          [invalid]="isInvalid('username')" />
+        @if (isInvalid('username')) {
+        @if (loginForm.get('username')?.errors?.['required']) {
+        <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
+        }
+        }
+      </div>
+      <div style="margin-top: 10px;">
+        <input class="write-it-input-login" placeholder="Password" formControlName="password" type="text" pInputText
+          [invalid]="isInvalid('password')" style="margin-top: 10px;" />
+        @if (isInvalid('password')) {
+        @if (loginForm.get('password')?.errors?.['required']) {
+        <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
+        }
+        }
+      </div>
+
     </div>
+
     <div class="btn-login-container">
-           <div class="btn-login">
-           <p-button label="log in" (click)="login()"/>
-           </div>
-           <div class="btn-signup">
-           <p-button label="sign up" (click)="signup()"/>
-           </div>
+      <div class="btn-login">
+        <p-button label="log in" (click)="login()" />
+      </div>
+      <div class="btn-signup">
+        <p-button label="sign up" (click)="signup()" />
+      </div>
     </div>
+  </form>
+
 </div>
