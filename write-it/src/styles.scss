@@ -68,46 +68,47 @@ html {
 }
 
 @keyframes smoothBackgroundHeaderLogin {
-  0% {
+    0% {
         background-color: var(--primary-color);
-  }
-  100% {
-    background-color: var(--thrid--primary-color);
-  }
+    }
+
+    100% {
+        background-color: var(--thrid--primary-color);
+    }
 }
 
 @keyframes smoothBackgroundLogin {
-  0% {
-       background-color: var(--thrid--primary-color);
-  }
-  100% {
-     background-color: var(--second--primary-color);
-  }
+    0% {
+        background-color: var(--thrid--primary-color);
+    }
+
+    100% {
+        background-color: var(--second--primary-color);
+    }
 }
 
 @keyframes smoothBackgroundMain {
-  0% {
-    background-color: var(--second--primary-color);
-  }
-  100% {
-    background-color: var(--thrid--primary-color);
-  }
+    0% {
+        background-color: var(--second--primary-color);
+    }
+
+    100% {
+        background-color: var(--thrid--primary-color);
+    }
 }
 
 
 @keyframes smoothBackgroundHeaderMain {
-  0% {
-    background-color: var(--primary-color);
-  }
-  100% {
-       background-color: var(--second--primary-color);
-  }
+    0% {
+        background-color: var(--primary-color);
+    }
+
+    100% {
+        background-color: var(--second--primary-color);
+    }
 }
 
-
-
-
-body{
+body {
     margin: 0px;
     min-height: 100%;
     overflow-x: hidden;
@@ -145,7 +146,7 @@ body.write-it-login {
 }
 
 .header-login {
-   animation: smoothBackgroundHeaderLogin 1s ease-in-out forwards;
+    animation: smoothBackgroundHeaderLogin 1s ease-in-out forwards;
 }
 
 .p-button {
@@ -177,6 +178,7 @@ body.write-it-login {
     width: 100px;
     margin-left: 20px;
     margin-top: 5px;
+
     .p-menu-list {
         background-color: var(--primary-color) !important;
 
@@ -194,6 +196,7 @@ body.write-it-login {
         }
 
         .p-menu-item.p-focus {
+
             .p-menu-item-content,
             .p-menu-item-icon {
                 background: #0A414D;
@@ -215,11 +218,75 @@ body.write-it-login {
     }
 }
 
-
 .card {
     background: var(--card-bg);
     border: var(--card-border);
     padding: 2rem;
     border-radius: 10px;
     margin-bottom: 1rem;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* START STYLE INPUT FROM LOGIN / REGISTER */
+
+.login {
+    position: relative;
+    animation: fade-in 1s ease-in forwards;
+    background-color: #F6F4DE;
+    width: 350px;
+    margin-right: 100px;
+    height: 400px;
+    border-radius: 5px;
+
+    .title {
+        margin-top: 30px;
+        position: absolute;
+        margin-left: 120px;
+    }
+
+    .input-container {
+        padding-top: 50px;
+        margin-left: 50px;
+
+        .write-it-input-login {
+            margin-top: 20px;
+            background: #F6F4DE !important;
+            padding-top: 10px !important;
+            width: 250px;
+            height: 50px;
+            border-radius: 5px;
+            border: 1.5px solid #ACABA3 !important;
+            color: #02343F !important;
+        }
+
+        .click-input {
+            border: 1.5px solid #02343F !important;
+        }
+
+    }
+
+    .btn-login-container {
+        margin-top: 20px;
+        margin-left: 60px;
+    }
+
+    /* END STYLE INPUT FROM LOGIN / REGISTER */
+    p-message {
+        .p-message-error.p-message-simple {
+            color: #923A3A;
+        }
+    }
+
+    .p-inputtext::placeholder {
+        color: #923A3A !important;
+    }
 }

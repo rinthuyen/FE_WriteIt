@@ -1,15 +1,42 @@
 <div class="login">
     <div class="title">
-    <span style="color: #02343F; font-size: 25px;">Write it !</span>
+        <span style="color: #02343F; font-size: 25px;">Write it !</span>
     </div>
-    <div class="input-container">
-    <input class="write-it-input-login" type="text" pInputText />
-    <input class="write-it-input-login" type="text" pInputText />
-    <input class="write-it-input-login" type="text" pInputText />
-    </div>
-    <div class="btn-login-container">
-           <div class="btn-signup">
-           <p-button label="sign up" (click)="signup()"/>
-           </div>
-    </div>
+    <form [formGroup]="registerForm" class="flex flex-col gap-4 w-full sm:w-56">
+        <div class="input-container">
+            <input class="write-it-input-login" [class.click-input]="clickUsername" placeholder="Username"
+                formControlName="username" type="text" pInputText [invalid]="isInvalid('username')"
+                (click)="handleClickinside('username')" writeItClickOutside
+                (clickOutside)="handleClickoutside('username')" />
+            @if (isInvalid('username')) {
+            @if (registerForm.get('username')?.errors?.['required']) {
+            <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
+            }
+            }
+            <input class="write-it-input-login" [class.click-input]="clickPassword" placeholder="Password"
+                formControlName="password" type="text" pInputText [invalid]="isInvalid('password')"
+                (click)="handleClickinside('password')" writeItClickOutside
+                (clickOutside)="handleClickoutside('password')" />
+            @if (isInvalid('password')) {
+            @if (registerForm.get('password')?.errors?.['required']) {
+            <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
+            }
+            }
+            <input class="write-it-input-login" [class.click-input]="clickDisplayedName" placeholder="Displayed name"
+                formControlName="displayedName" type="text" pInputText [invalid]="isInvalid('displayedName')"
+                (click)="handleClickinside('displayedName')" writeItClickOutside
+                (clickOutside)="handleClickoutside('displayedName')" />
+            @if (isInvalid('displayedName')) {
+            @if (registerForm.get('displayedName')?.errors?.['required']) {
+            <p-message severity="error" size="small" variant="simple">Displayed Name is required.</p-message>
+            }
+            }
+        </div>
+        <div class="btn-login-container">
+            <div class="btn-signup">
+                <p-button label="sign up" (click)="signup()" />
+            </div>
+        </div>
+    </form>
+
 </div>

@@ -2,11 +2,11 @@
   <div class="title">
     <span style="color: #02343F; font-size: 25px; width: 100%;">Write it !</span>
   </div>
-  <form [formGroup]="loginForm" class="flex flex-col gap-4 w-full sm:w-56">
+  <form [formGroup]="loginForm">
     <div class="input-container">
       <div style="margin-top: 10px;">
-        <input class="write-it-input-login" placeholder="Username" formControlName="username" type="text" pInputText
-          [invalid]="isInvalid('username')" />
+        <input class="write-it-input-login" [class.click-input]="clickUsername" placeholder="Username" formControlName="username" type="text" pInputText
+          [invalid]="isInvalid('username')" (click)="handleClickinside('username')" writeItClickOutside (clickOutside)="handleClickoutside('username')"/>
         @if (isInvalid('username')) {
         @if (loginForm.get('username')?.errors?.['required']) {
         <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
@@ -15,7 +15,7 @@
       </div>
       <div style="margin-top: 10px;">
         <input class="write-it-input-login" placeholder="Password" formControlName="password" type="text" pInputText
-          [invalid]="isInvalid('password')" style="margin-top: 10px;" />
+          [invalid]="isInvalid('password')" style="margin-top: 10px;" [class.click-input]="clickPassword" (click)="handleClickinside('password')" writeItClickOutside (clickOutside)="handleClickoutside('password')" />
         @if (isInvalid('password')) {
         @if (loginForm.get('password')?.errors?.['required']) {
         <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
