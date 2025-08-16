@@ -286,7 +286,8 @@ body.write-it-login {
         }
     }
 
-    .p-inputtext::placeholder {
+    .p-inputtext.ng-invalid.ng-dirty::placeholder,
+    .p-inputtext.p-invalid::placeholder {
         color: #923A3A !important;
     }
 }
