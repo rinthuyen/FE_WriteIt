@@ -3,6 +3,7 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { MenuComponent } from './core/layout/menu/menu.component';
 import { HeaderComponent } from './core/layout/header/header.component';
 import { CommonModule } from '@angular/common';
+import { AuthenticationService } from './core/auth/services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,11 @@ import { CommonModule } from '@angular/common';
 export class App implements OnInit {
   endpoint: string | undefined;
   protected title = 'write-it';
-  constructor(private router: Router,private renderer: Renderer2, @Inject(DOCUMENT) private document: Document) {
+  constructor(
+    private authenticationService:AuthenticationService,
+    private router: Router,
+    private renderer: Renderer2, 
+    @Inject(DOCUMENT) private document: Document) {
      
   }
   ngOnInit(): void {
@@ -26,9 +31,11 @@ export class App implements OnInit {
       if (event instanceof NavigationEnd) {
         const url = (<NavigationEnd>event).url;
         this.endpoint = url;
+        const isAuthenticated  = this.authenticationService.isAuthenticated();
         if(!this.isEndpointLogin()){
             this.renderer.removeClass(this.document.body, 'write-it-login');
             this.renderer.removeClass(this.document.getElementById('header'), 'header-login');
+            setTimeout(()=> this.authenticationService.setAuthentication(isAuthenticated),0); // notify to change action on menu  
         }
       }
     });

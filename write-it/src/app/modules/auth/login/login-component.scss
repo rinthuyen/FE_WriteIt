@@ -33,7 +33,7 @@
             border-radius: 10px;
         }
 
-        ::ng-deep .p-button:hover {
+        ::ng-deep .p-button:hover:enabled {
             background-color: #0d6e81 !important;
         }
     }

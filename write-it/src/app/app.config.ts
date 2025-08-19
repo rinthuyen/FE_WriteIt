@@ -4,6 +4,8 @@ import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { apiInterceptor } from './core/interceptors/api.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,6 +17,9 @@ export const appConfig: ApplicationConfig = {
             theme: {
                 preset: Aura
             }
-        })
+        }),
+    provideHttpClient(
+      withInterceptors([apiInterceptor])
+    )
   ]
 };

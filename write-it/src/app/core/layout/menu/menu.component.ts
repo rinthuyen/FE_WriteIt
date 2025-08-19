@@ -1,23 +1,32 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Button } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
-import { CommonModule } from '@angular/common';
+import { AuthenticationService } from '../../auth/services/authentication.service';
+import { JwtService } from '../../auth/services/jwt.service';
 
 @Component({
-  selector: 'write-it-menu',
-  imports: [MenuModule, Button, CommonModule],
-  templateUrl: './menu.component.html',
-  styleUrl: './menu.component.scss'
+    selector: 'write-it-menu',
+    imports: [MenuModule, Button, CommonModule],
+    templateUrl: './menu.component.html',
+    styleUrl: './menu.component.scss'
 })
 
 export class MenuComponent implements OnInit {
     items: MenuItem[] | undefined;
-    isShowHideBtn:boolean | undefined;
-    constructor() {}
+    isAuthenticated = false;
+    isShowHideBtn: boolean | undefined;
+    visible: boolean = true;
+    constructor(
+        private authentication: AuthenticationService,
+        private jwtService: JwtService,
+    ) {
+    }
+
     ngOnInit() {
-      this.isShowHideBtn = false;
-         this.items = [
+        this.isShowHideBtn = false;
+        this.items = [
             {
                 label: 'Documents',
                 items: [
@@ -32,14 +41,14 @@ export class MenuComponent implements OnInit {
                         routerLink: '/'
                     },
                     {
-                        label: 'Save', 
+                        label: 'Save',
                         icon: 'pi pi-save',
                         routerLink: '/'
                     },
                     {
                         label: 'History',
-                         icon: 'pi pi-history',
-                         routerLink: '/'
+                        icon: 'pi pi-history',
+                        routerLink: '/'
                     },
                 ]
             },
@@ -51,21 +60,53 @@ export class MenuComponent implements OnInit {
                         icon: 'pi pi-cog',
                         routerLink: '/'
                     },
-                    { 
-                        label: 'Login', 
+                    {
+                        label: 'Login',
                         icon: 'pi pi-sign-in',
-                        routerLink: '/auth' },
+                        routerLink: '/auth'
+                    },
                     {
                         label: 'Logout',
                         icon: 'pi pi-sign-out',
-                        routerLink: '/'
+                        routerLink: '/',
+                        command: () => {
+                            this.jwtService.removeToken();
+                            this.showHideCredenticalsAction(false);
+                        }
                     }
                 ]
             }
         ];
+        this.onChangeCredentials();
     }
 
-    showHideMenu(){
-      this.isShowHideBtn = !this.isShowHideBtn;
+
+    showHideCredenticalsAction(isAuthenticated: boolean) {
+        if (isAuthenticated) {
+            this.items![1].items![1].visible = false;
+            this.items![1].items![2].visible = true;
+            this.updateMenuVisible();
+        } else {
+            this.items![1].items![1].visible = true;
+            this.items![1].items![2].visible = false;
+            this.updateMenuVisible();
+        }
+    }
+
+    onChangeCredentials() {
+        this.authentication.authenObserable.subscribe((isAuthenticated: boolean) => {
+            this.showHideCredenticalsAction(isAuthenticated);
+        })
+    }
+
+    updateMenuVisible() {
+        this.visible = false;
+        setTimeout(() => {
+            this.visible = true;
+        }, 0);
+    }
+
+    showHideMenu() {
+        this.isShowHideBtn = !this.isShowHideBtn;
     }
 }
