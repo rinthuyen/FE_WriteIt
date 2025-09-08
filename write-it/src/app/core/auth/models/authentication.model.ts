@@ -3,7 +3,14 @@ export interface LoginModel{
     password:string
 }
 
+export interface RegisterModel{
+    username:string,
+    password:string,
+    displayedName:string
+}
+
 export interface JwtModel{
 accessToken:string,
 refreshToken:string
 }
+

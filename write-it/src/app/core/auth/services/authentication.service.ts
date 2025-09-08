@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { LoginModel } from "../models/authentication.model";
+import { LoginModel, RegisterModel } from "../models/authentication.model";
 import { Observable, Subject } from "rxjs";
 import { JwtService } from "./jwt.service";
 import { MenuItem } from "primeng/api";
@@ -16,6 +16,10 @@ export class AuthenticationService {
 
     login(credentials: LoginModel): Observable<any> {
         return this.http.post('auth/login', credentials);
+    }
+   
+    register(credentials: RegisterModel): Observable<any> {
+        return this.http.post('auth/register', credentials);
     }
 
     public setAuthentication(isAuthenticated: boolean): void {
