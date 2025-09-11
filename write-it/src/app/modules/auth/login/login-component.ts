@@ -7,16 +7,27 @@ import { MessageModule } from 'primeng/message';
 import { ClickOutsideDirective } from '../../../shared/directives/click-outside.directive';
 import { JwtModel, LoginModel } from '../../../core/auth/models/authentication.model';
 import { AuthenticationService } from '../../../core/auth/services/authentication.service';
-import { ApiResponse } from '../../../core/http/models/ApiResponse.model';
+import { ApiResponse, ApiResponseError } from '../../../core/http/models/ApiResponse.model';
 import { STATUS_CODE } from '../../../core/http/models/statusCode.model';
 import { JwtService } from '../../../core/auth/services/jwt.service';
 import { MessageService } from 'primeng/api';
 import { Toast } from 'primeng/toast';
 import { Router } from '@angular/router';
-
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
+import { AppError } from "../../../utils/errors";
+import { AppNotify } from "../../../utils/notify";
 @Component({
   selector: 'write-it-login',
-  imports: [ButtonModule, InputTextModule, Button, ReactiveFormsModule, MessageModule, ClickOutsideDirective, Toast],
+  imports: [ButtonModule,
+    InputTextModule,
+    Button,
+    ReactiveFormsModule,
+    MessageModule,
+    ClickOutsideDirective,
+    Toast,
+    IconField,
+    InputIcon],
   providers: [MessageService],
   templateUrl: './login-component.html',
   styleUrl: './login-component.scss'
@@ -27,10 +38,14 @@ export class LoginComponent implements OnInit {
   formSubmitted = false;
   clickUsername = false;
   clickPassword = false;
+  showPassword = false;
+  typeInputPassword = "password";
   USERNAME_FIELD = "username";
   PASSWORD_FIELD = "password";
   typeToast: 'Success' | 'Error' | undefined;
   typeSeverity: 'contrast' | 'success' | undefined;
+  notify: AppNotify;
+
   constructor(
     private authService: AuthService,
     private authenticationService: AuthenticationService,
@@ -40,6 +55,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.loginForm = new FormGroup({});
+    this.notify = new AppNotify(this.messageService);
   }
 
   ngOnInit(): void {
@@ -58,15 +74,23 @@ export class LoginComponent implements OnInit {
       if (res.status === STATUS_CODE.SUCCESS) {
         const jwt: JwtModel = res.data;
         this.jwtService.setToken(jwt.accessToken);
+        console.log('access_token', this.jwtService.getToken());
         this.authService.completeChangeFormSubject();
         this.typeToast = 'Success';
         this.typeSeverity = 'success';
-        this.toastMessage(this.typeSeverity, 'Login successfully!', this.typeToast);
-        setTimeout(() => this.router.navigate(['/']),500);
-      } else {
-        this.typeToast = 'Error';
-        this.typeSeverity = 'contrast';
-        this.toastMessage(this.typeSeverity, res.data, this.typeToast);
+        this.notify.toastMessage(this.typeSeverity, res.message ?? "", this.typeToast);
+        setTimeout(() => this.router.navigate(['/']), 500);
+      }
+    }, (err: ApiResponseError) => {
+      const error = err.error;
+      switch (error.status) {
+        case STATUS_CODE.UN_AUTHORIZE:
+          this.typeToast = 'Error';
+          this.typeSeverity = 'contrast';
+          this.notify.toastMessage(this.typeSeverity, error.message ?? "", this.typeToast);
+          break;
+        case STATUS_CODE.BAD_REQUEST:
+          AppError.handleErrorMessageFormGroup(error, this.loginForm);
       }
     })
   }
@@ -101,7 +125,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  toastMessage(severity: string, message: string, typeToast: string) {
-    this.messageService.add({ severity: severity, summary: typeToast, detail: message });
+  showHidePassword() {
+    this.showPassword = !this.showPassword;
+    this.typeInputPassword = !this.showPassword ? "password" : "text";
   }
 }

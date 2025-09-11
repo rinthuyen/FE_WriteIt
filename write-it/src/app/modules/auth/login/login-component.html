@@ -6,26 +6,41 @@
   <form [formGroup]="loginForm">
     <div class="input-container">
       <div style="margin-top: 10px;">
-        <input class="write-it-input-login" [class.click-input]="clickUsername" placeholder="Username" formControlName="username" type="text" pInputText
-          [invalid]="isInvalid('username')" (click)="handleClickinside('username')" writeItClickOutside (clickOutside)="handleClickoutside('username')"/>
+        <input class="write-it-input-login" [class.click-input]="clickUsername" placeholder="Username"
+          formControlName="username" type="text" pInputText [invalid]="isInvalid('username')"
+          (click)="handleClickinside('username')" writeItClickOutside (clickOutside)="handleClickoutside('username')" />
         @if (isInvalid('username')) {
         @if (loginForm.get('username')?.errors?.['required']) {
         <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
         }
         }
+        @if (loginForm.get('username')?.errors?.['error']) {
+        <p-message severity="error" size="small"
+          variant="simple">{{loginForm.get('username')?.errors?.['error']}}</p-message>
+        }
       </div>
+
       <div style="margin-top: 10px;">
-        <input class="write-it-input-login" placeholder="Password" formControlName="password" type="text" pInputText
-          [invalid]="isInvalid('password')" style="margin-top: 10px;" [class.click-input]="clickPassword" (click)="handleClickinside('password')" writeItClickOutside (clickOutside)="handleClickoutside('password')" />
+        
+        <p-iconfield>
+        <input class="write-it-input-login" placeholder="Password" formControlName="password" [type]="typeInputPassword" pInputText
+          [invalid]="isInvalid('password')" style="margin-top: 10px;" [class.click-input]="clickPassword"
+          (click)="handleClickinside('password')" writeItClickOutside (clickOutside)="handleClickoutside('password')"
+          />
+          <p-inputicon class="pi pi-eye-slash show-hide-password" [class.pi-eye]="showPassword" (click)="showHidePassword()" />
+        </p-iconfield>
+       
         @if (isInvalid('password')) {
         @if (loginForm.get('password')?.errors?.['required']) {
         <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
         }
+        @if (loginForm.get('password')?.errors?.['error']) {
+        <p-message severity="error" size="small"
+          variant="simple">{{loginForm.get('password')?.errors?.['error']}}</p-message>
+        }
         }
       </div>
-
     </div>
-
     <div class="btn-login-container">
       <div class="btn-login">
         <p-button label="log in" (click)="login()" [disabled]="loginForm.invalid" />

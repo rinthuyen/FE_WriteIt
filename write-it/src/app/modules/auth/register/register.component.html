@@ -1,5 +1,5 @@
 <div class="login">
-      <p-toast />
+    <p-toast />
     <div class="title">
         <span style="color: #02343F; font-size: 25px;">Write it !</span>
     </div>
@@ -14,6 +14,11 @@
             <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
             }
             }
+            @if (registerForm.get('username')?.errors?.['error']) {
+            <p-message severity="error" size="small"
+                variant="simple">{{registerForm.get('username')?.errors?.['error']}}</p-message>
+            }
+
             <input class="write-it-input-login" [class.click-input]="clickPassword" placeholder="Password"
                 formControlName="password" type="text" pInputText [invalid]="isInvalid('password')"
                 (click)="handleClickinside('password')" writeItClickOutside
@@ -23,6 +28,10 @@
             <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
             }
             }
+            @if (registerForm.get('password')?.errors?.['error']) {
+            <p-message severity="error" size="small"
+                variant="simple">{{registerForm.get('password')?.errors?.['error']}}</p-message>
+            }
             <input class="write-it-input-login" [class.click-input]="clickDisplayedName" placeholder="Displayed name"
                 formControlName="displayedName" type="text" pInputText [invalid]="isInvalid('displayedName')"
                 (click)="handleClickinside('displayedName')" writeItClickOutside
@@ -31,6 +40,10 @@
             @if (registerForm.get('displayedName')?.errors?.['required']) {
             <p-message severity="error" size="small" variant="simple">Displayed Name is required.</p-message>
             }
+            }
+            @if (registerForm.get('displayedName')?.errors?.['error']) {
+            <p-message severity="error" size="small"
+                variant="simple">{{registerForm.get('displayedName')?.errors?.['error']}}</p-message>
             }
         </div>
         <div class="btn-login-container">

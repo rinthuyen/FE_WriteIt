@@ -33,6 +33,7 @@ export class AuthManagementComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
   }
+  
   modifyIndexHtml(): void {
     this.renderer.addClass(this.document.body, 'write-it-login');
     this.renderer.addClass(this.document.getElementById('header'), 'header-login');

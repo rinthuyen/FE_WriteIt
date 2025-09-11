@@ -3,7 +3,6 @@ import { Injectable } from "@angular/core";
 import { LoginModel, RegisterModel } from "../models/authentication.model";
 import { Observable, Subject } from "rxjs";
 import { JwtService } from "./jwt.service";
-import { MenuItem } from "primeng/api";
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {

@@ -2,5 +2,6 @@ export enum STATUS_CODE{
     SUCCESS = 200,
     CREATED = 201,
     BAD_REQUEST = 400,
-    UN_AUTHORIZE = 401
+    UN_AUTHORIZE = 401,
+    CONFLICT = 409
 }
