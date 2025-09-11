@@ -4,6 +4,15 @@
 @tailwind utilities;
 @import "primeicons/primeicons.css";
 
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px #F6F4DE inset !important; /* background color */
+    -webkit-text-fill-color: #02343F !important; /* text color */
+}
+
 .libertinus-sans-regular {
     font-family: "Libertinus Sans", sans-serif;
     font-weight: 400;
@@ -127,7 +136,7 @@ body.write-it-login {
     min-height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    animation: smoothBackgroundLogin 1s ease-in-out forwards;
+    animation: smoothBackgroundLogin 0.5s ease-in-out forwards;
     font-family: "Mulish", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;

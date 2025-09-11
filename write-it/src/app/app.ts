@@ -4,26 +4,33 @@ import { MenuComponent } from './core/layout/menu/menu.component';
 import { HeaderComponent } from './core/layout/header/header.component';
 import { CommonModule } from '@angular/common';
 import { AuthenticationService } from './core/auth/services/authentication.service';
+import { ProgressSpinner } from 'primeng/progressspinner';
+import { LoadingService } from './core/http/services/loadingService';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MenuComponent, HeaderComponent, CommonModule],
+  imports: [RouterOutlet, MenuComponent, HeaderComponent, CommonModule,ProgressSpinner],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 
 export class App implements OnInit {
   endpoint: string | undefined;
+  loading: boolean
   protected title = 'write-it';
   constructor(
     private authenticationService:AuthenticationService,
     private router: Router,
     private renderer: Renderer2, 
-    @Inject(DOCUMENT) private document: Document) {
-     
+    @Inject(DOCUMENT) private document: Document, private loadingService:LoadingService) {
+      this.loading = false;
   }
+
   ngOnInit(): void {
     this.getNavigateEndPoint();
+    this.loadingService.loadingObserable.subscribe((isLoading)=>{
+      this.loading = isLoading;
+    })
   }
 
   getNavigateEndPoint() {

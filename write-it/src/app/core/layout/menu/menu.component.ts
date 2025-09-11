@@ -1,14 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Button } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { AuthenticationService } from '../../auth/services/authentication.service';
 import { JwtService } from '../../auth/services/jwt.service';
+import { ConfirmDialog } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'write-it-menu',
-    imports: [MenuModule, Button, CommonModule],
+    imports: [MenuModule, Button, CommonModule,ConfirmDialog,ToastModule],
+    providers: [ConfirmationService, MessageService],
     templateUrl: './menu.component.html',
     styleUrl: './menu.component.scss'
 })
@@ -21,6 +24,8 @@ export class MenuComponent implements OnInit {
     constructor(
         private authentication: AuthenticationService,
         private jwtService: JwtService,
+        private confirmationService: ConfirmationService,
+        private messageService: MessageService
     ) {
     }
 
@@ -69,9 +74,8 @@ export class MenuComponent implements OnInit {
                         label: 'Logout',
                         icon: 'pi pi-sign-out',
                         routerLink: '/',
-                        command: () => {
-                            this.jwtService.removeToken();
-                            this.showHideCredenticalsAction(false);
+                        command: (event:any) => {
+                            this.confirmLogout(event);
                         }
                     }
                 ]
@@ -108,5 +112,29 @@ export class MenuComponent implements OnInit {
 
     showHideMenu() {
         this.isShowHideBtn = !this.isShowHideBtn;
+    }
+
+    confirmLogout(event: Event) {
+        this.confirmationService.confirm({
+            target: event.target as EventTarget,
+            message: 'Are you sure that you want to logout?',
+            header: 'Confirmation',
+            closable: true,
+            closeOnEscape: true,
+            icon: 'pi pi-exclamation-triangle',
+            rejectButtonProps: {
+                label: 'Cancel',
+                severity: 'secondary',
+                outlined: true,
+            },
+            acceptButtonProps: {
+                label: 'Yes',
+            },
+            accept: () => {
+                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have logged out' });
+                this.jwtService.removeToken();
+                this.showHideCredenticalsAction(false);
+            },
+        });
     }
 }

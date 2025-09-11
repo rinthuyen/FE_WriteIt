@@ -1,0 +1,24 @@
+   .full-screen-overlay {
+       position: fixed;
+       /* Fixes the overlay relative to the viewport */
+       top: 0;
+       left: 0;
+       width: 100vw;
+       /* 100% of viewport width */
+       height: 100vh;
+       /* 100% of viewport height */
+       background-color: rgba(0, 0, 0, 0.5);
+       /* Semi-transparent background */
+       display: flex;
+       /* Use flexbox for centering */
+       justify-content: center;
+       /* Center horizontally */
+       align-items: center;
+       /* Center vertically */
+       z-index: 9999;
+       /* Ensure it's on top of other content */
+   }
+
+   .app-loading ::ng-deep .p-progressspinner-circle {
+       stroke: #044451 !important;
+   }
