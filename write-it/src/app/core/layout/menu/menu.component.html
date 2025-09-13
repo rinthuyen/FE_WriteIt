@@ -1,6 +1,8 @@
 <p-button icon="pi pi-bars" (click)="showHideMenu()"/>
 <div class="flex justify-center write-it-menu" [class.show]="isShowHideBtn" [class.hide]="!isShowHideBtn">
-    <p-toast />
+   <div class="app-toast-info">
+ <p-toast />
+   </div>
     <p-confirmdialog />
     <p-menu [model]="items" *ngIf="visible"/>
 </div>

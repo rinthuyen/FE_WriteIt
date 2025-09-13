@@ -6,11 +6,13 @@
 
 
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0px 1000px #F6F4DE inset !important; /* background color */
-    -webkit-text-fill-color: #02343F !important; /* text color */
+    -webkit-box-shadow: 0 0 0px 1000px #F6F4DE inset !important;
+    /* background color */
+    -webkit-text-fill-color: #02343F !important;
+    /* text color */
 }
 
 .libertinus-sans-regular {
@@ -60,6 +62,7 @@ input:-webkit-autofill:active {
     --primary-color: #02343F;
     --second--primary-color: #044451;
     --thrid--primary-color: #F6F4DE;
+    --input--text--error-color: #923A3A;
 }
 
 :root[class='p-dark'] {
@@ -122,7 +125,6 @@ body {
     min-height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    //background-color: var(--body-bg);
     animation: smoothBackgroundMain 0.5s ease-in-out forwards;
     font-family: "Mulish", sans-serif;
     font-optical-sizing: auto;
@@ -250,7 +252,7 @@ body.write-it-login {
 .login {
     position: relative;
     animation: fade-in 1s ease-in forwards;
-    background-color: #F6F4DE;
+    background-color: var(--thrid--primary-color);
     width: 350px;
     margin-right: 100px;
     height: 400px;
@@ -268,17 +270,17 @@ body.write-it-login {
 
         .write-it-input-login {
             margin-top: 20px;
-            background: #F6F4DE !important;
+            background: var(--thrid--primary-color) !important;
             padding-top: 10px !important;
             width: 250px;
             height: 50px;
             border-radius: 5px;
             border: 1.5px solid #ACABA3 !important;
-            color: #02343F !important;
+            color: var(--primary-color) !important;
         }
 
         .click-input {
-            border: 1.5px solid #02343F !important;
+            border: 1.5px solid var(--primary-color) !important;
         }
 
     }
@@ -288,15 +290,57 @@ body.write-it-login {
         margin-left: 60px;
     }
 
-    /* END STYLE INPUT FROM LOGIN / REGISTER */
     p-message {
         .p-message-error.p-message-simple {
-            color: #923A3A;
+            color: var(--input--text--error-color);
         }
     }
 
     .p-inputtext.ng-invalid.ng-dirty::placeholder,
     .p-inputtext.p-invalid::placeholder {
-        color: #923A3A !important;
+        color: var(--input--text--error-color) !important;
     }
+
+    .p-toast-message.p-toast-message-success {
+        background-color: var(--primary-color);
+        border-color: var(--second--primary-color);
+        color: var(--body-text-color)
+    }
+
+    .p-toast-message.p-toast-message-contrast {
+        background-color: var(--thrid--primary-color);
+        border-color: var(--second--primary-color);
+    }
+}
+
+.p-dialog-title {
+    color: var(--body-bg);
+}
+
+.p-confirmdialog-message {
+    color: var(--body-bg);
+}
+
+.p-confirmdialog-icon {
+    color: var(--body-bg) !important;
+}
+
+.p-toast-message.p-toast-message-info {
+    background-color: var(--primary-color);
+    border-color: var(--second--primary-color);
+    color: var(--body-text-color);
+}
+
+.p-button-outlined.p-button-secondary:not(:disabled):hover {
+    color: var(--body-bg) !important;
+}
+
+.p-confirmdialog-accept-button {
+    .p-button-label {
+        color: var(--body-bg) !important;
+    }
+}
+
+.p-button:not(:disabled):hover {
+    color: var(--body-bg) !important;
 }
