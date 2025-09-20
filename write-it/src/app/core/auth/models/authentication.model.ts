@@ -9,6 +9,11 @@ export interface RegisterModel{
     displayedName:string
 }
 
+export interface ResetPasswordModel{
+    token:string,
+    password:string
+}
+
 export interface JwtModel{
 accessToken:string,
 refreshToken:string

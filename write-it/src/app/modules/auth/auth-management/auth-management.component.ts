@@ -35,7 +35,7 @@ export class AuthManagementComponent implements OnInit, OnDestroy {
   }
   
   modifyIndexHtml(): void {
-    this.renderer.addClass(this.document.body, 'write-it-login');
-    this.renderer.addClass(this.document.getElementById('header'), 'header-login');
+    this.renderer.addClass(this.document.body, 'write-it-auth');
+    this.renderer.addClass(this.document.getElementById('header'), 'header-auth');
   }
 }

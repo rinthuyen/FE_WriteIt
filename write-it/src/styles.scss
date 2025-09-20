@@ -133,7 +133,7 @@ body {
     font-style: normal;
 }
 
-body.write-it-login {
+body.write-it-auth {
     margin: 0px;
     min-height: 100%;
     overflow-x: hidden;
@@ -156,7 +156,7 @@ body.write-it-login {
     height: 30px;
 }
 
-.header-login {
+.header-auth {
     animation: smoothBackgroundHeaderLogin 1s ease-in-out forwards;
 }
 
@@ -247,9 +247,9 @@ body.write-it-login {
     }
 }
 
-/* START STYLE INPUT FROM LOGIN / REGISTER */
+/* START STYLE INPUT FROM LOGIN / REGISTER / RESET PASSWORD */
 
-.login {
+.reset-password, .login {
     position: relative;
     animation: fade-in 1s ease-in forwards;
     background-color: var(--thrid--primary-color);

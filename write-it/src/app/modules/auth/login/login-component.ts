@@ -78,6 +78,7 @@ export class LoginComponent implements OnInit {
       if (res.status === STATUS_CODE.SUCCESS) {
         const jwt: JwtModel = res.data;
         this.jwtService.setToken(jwt.accessToken);
+        console.log(jwt.accessToken);
         this.authService.completeChangeFormSubject();
         this.typeToast = 'Success';
         this.typeSeverity = 'success';

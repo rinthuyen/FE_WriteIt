@@ -40,8 +40,8 @@ export class App implements OnInit {
         this.endpoint = url;
         const isAuthenticated  = this.authenticationService.isAuthenticated();
         if(!this.isEndpointLogin()){
-            this.renderer.removeClass(this.document.body, 'write-it-login');
-            this.renderer.removeClass(this.document.getElementById('header'), 'header-login');
+            this.renderer.removeClass(this.document.body, 'write-it-auth');
+            this.renderer.removeClass(this.document.getElementById('header'), 'header-auth');
             setTimeout(()=> this.authenticationService.setAuthentication(isAuthenticated),0); // notify to change action on menu  
         }
       }
@@ -49,6 +49,6 @@ export class App implements OnInit {
   }
 
   isEndpointLogin() {
-    return this.endpoint === '/auth';
+    return this.endpoint === '/auth' || this.endpoint === "/auth/reset-password";
   }
 }
