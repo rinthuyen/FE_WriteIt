@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, viewChild } from '@angular/core';
 import { Button, ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { AuthService } from '../services/auth.service';
@@ -17,6 +17,7 @@ import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 import { AppError } from "../../../utils/errors";
 import { AppNotify } from "../../../utils/notify";
+import { ForgotPasswordComponent } from './forgot-password/forgot-password-component';
 @Component({
   selector: 'write-it-login',
   imports: [ButtonModule,
@@ -27,13 +28,16 @@ import { AppNotify } from "../../../utils/notify";
     ClickOutsideDirective,
     Toast,
     IconField,
-    InputIcon],
+    InputIcon,
+    ForgotPasswordComponent,
+  ],
   providers: [MessageService],
   templateUrl: './login-component.html',
   styleUrl: './login-component.scss'
 })
 
 export class LoginComponent implements OnInit {
+  @ViewChild('forgotpassword') forgotpassword : ForgotPasswordComponent | any;
   loginForm: FormGroup;
   formSubmitted = false;
   clickUsername = false;
@@ -45,18 +49,18 @@ export class LoginComponent implements OnInit {
   typeToast: 'Success' | 'Error' | undefined;
   typeSeverity: 'contrast' | 'success' | undefined;
   notify: AppNotify;
-
   constructor(
     private authService: AuthService,
     private authenticationService: AuthenticationService,
     private jwtService: JwtService,
     private messageService: MessageService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) {
     this.loginForm = new FormGroup({});
     this.notify = new AppNotify(this.messageService);
   }
+
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -74,7 +78,6 @@ export class LoginComponent implements OnInit {
       if (res.status === STATUS_CODE.SUCCESS) {
         const jwt: JwtModel = res.data;
         this.jwtService.setToken(jwt.accessToken);
-        console.log('access_token', this.jwtService.getToken());
         this.authService.completeChangeFormSubject();
         this.typeToast = 'Success';
         this.typeSeverity = 'success';
@@ -128,5 +131,9 @@ export class LoginComponent implements OnInit {
   showHidePassword() {
     this.showPassword = !this.showPassword;
     this.typeInputPassword = !this.showPassword ? "password" : "text";
+  }
+
+  openFormRestPassword(){
+    this.forgotpassword.show(); 
   }
 }

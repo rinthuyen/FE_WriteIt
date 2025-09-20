@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { LoginModel, RegisterModel } from "../models/authentication.model";
+import { ForgotPasswordModel, LoginModel, RegisterModel } from "../models/authentication.model";
 import { Observable, Subject } from "rxjs";
 import { JwtService } from "./jwt.service";
 
@@ -19,6 +19,10 @@ export class AuthenticationService {
    
     register(credentials: RegisterModel): Observable<any> {
         return this.http.post('auth/register', credentials);
+    }
+ 
+    forgotPassword(req: ForgotPasswordModel): Observable<any> {
+        return this.http.post('auth/forgot-password', req);
     }
 
     public setAuthentication(isAuthenticated: boolean): void {

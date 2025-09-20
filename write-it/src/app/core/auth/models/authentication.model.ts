@@ -14,3 +14,6 @@ accessToken:string,
 refreshToken:string
 }
 
+export interface ForgotPasswordModel{
+    email:string
+}

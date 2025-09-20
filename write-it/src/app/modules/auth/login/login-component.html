@@ -41,6 +41,10 @@
         }
       </div>
     </div>
+    <div class="forgot-password">
+        <a (click)="openFormRestPassword()">Forgot password</a>
+        <write-it-forgot-password-component #forgotpassword></write-it-forgot-password-component>
+    </div>
     <div class="btn-login-container">
       <div class="btn-login">
         <p-button label="log in" (click)="login()" [disabled]="loginForm.invalid" />
