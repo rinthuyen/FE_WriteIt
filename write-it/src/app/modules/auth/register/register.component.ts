@@ -13,12 +13,10 @@ import { MessageService } from 'primeng/api';
 import { Toast } from 'primeng/toast';
 import { AppError } from '../../../utils/errors';
 import { AppNotify } from '../../../utils/notify';
-import { IconField } from 'primeng/iconfield';
-import { InputIcon } from 'primeng/inputicon';
 
 @Component({
   selector: 'write-it-register',
-  imports: [ButtonModule, InputTextModule, Button, IconField, InputIcon ,ReactiveFormsModule, MessageModule, ClickOutsideDirective, Toast],
+  imports: [ButtonModule, InputTextModule, Button ,ReactiveFormsModule, MessageModule, ClickOutsideDirective, Toast],
   providers: [MessageService],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'

@@ -58,12 +58,12 @@ export class MenuComponent implements OnInit {
                 ]
             },
             {
-                label: 'Profile',
+                label: 'Settings',
                 items: [
                     {
-                        label: 'Settings',
-                        icon: 'pi pi-cog',
-                        routerLink: '/'
+                        label: 'Profile',
+                        icon: 'pi pi-user',
+                        routerLink: '/user/profile'
                     },
                     {
                         label: 'Login',
