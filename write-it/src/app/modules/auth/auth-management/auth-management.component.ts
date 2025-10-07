@@ -26,6 +26,7 @@ export class AuthManagementComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.modifyIndexHtml();
     this.authService.data$.pipe(takeUntil(this.destroy$)).subscribe(form => {
+      console.log("Form",form);
       this.isSignUp = form === this.signup;
     })
   }

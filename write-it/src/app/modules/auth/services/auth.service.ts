@@ -15,7 +15,7 @@ export class AuthService {
         this._changeFormSubject.next(data);
     }
 
-    public completeChangeFormSubject(): void {
-        this._changeFormSubject.complete();
-    }
+    // public completeChangeFormSubject(): void {
+    //     this._changeFormSubject.complete();
+    // }
 }

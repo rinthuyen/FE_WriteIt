@@ -47,14 +47,11 @@
             }
         </div>
          <div class="btn-login-container">
-            <div class="back-login" (click)="backtoLogin()">
-            <p-iconfield>
-                <p-inputicon style="color: #044451;" class="pi pi-arrow-left" />
-                <p style="color: #044451; margin-left: 35px;">Back to login</p>
-             </p-iconfield>
-            </div>
-            <div class="btn-signup">
+             <div class="btn-signup">
                 <p-button label="sign up" (click)="signup()" />
+            </div>
+            <div class="back-login">
+              <p style="color: #066c80;">Already have an account? <u (click)="backtoLogin()">login</u></p>
             </div>
         </div>
     </form>

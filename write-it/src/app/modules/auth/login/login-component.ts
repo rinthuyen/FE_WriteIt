@@ -79,7 +79,7 @@ export class LoginComponent implements OnInit {
         const jwt: JwtModel = res.data;
         this.jwtService.setToken(jwt.accessToken);
         console.log(jwt.accessToken);
-        this.authService.completeChangeFormSubject();
+       // this.authService.completeChangeFormSubject();
         this.typeToast = 'Success';
         this.typeSeverity = 'success';
         this.notify.toastMessage(this.typeSeverity, res.message ?? "", this.typeToast);
@@ -106,7 +106,6 @@ export class LoginComponent implements OnInit {
 
   signup() {
     this.authService.setChangeFormSubject("signup");
-    // this.authService.completeChangeFormSubject();
   }
 
   handleClickinside(type: string) {
