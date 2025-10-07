@@ -46,7 +46,13 @@
                 variant="simple">{{registerForm.get('displayedName')?.errors?.['error']}}</p-message>
             }
         </div>
-        <div class="btn-login-container">
+         <div class="btn-login-container">
+            <div class="back-login" (click)="backtoLogin()">
+            <p-iconfield>
+                <p-inputicon style="color: #044451;" class="pi pi-arrow-left" />
+                <p style="color: #044451; margin-left: 35px;">Back to login</p>
+             </p-iconfield>
+            </div>
             <div class="btn-signup">
                 <p-button label="sign up" (click)="signup()" />
             </div>
