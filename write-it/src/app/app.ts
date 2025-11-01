@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { AuthenticationService } from './core/auth/services/authentication.service';
 import { ProgressSpinner } from 'primeng/progressspinner';
 import { LoadingService } from './core/http/services/loadingService';
+import { ProfileComponent } from './modules/user/profile/profile-component';
 
 @Component({
   selector: 'app-root',
@@ -39,8 +40,9 @@ export class App implements OnInit {
         const url = (<NavigationEnd>event).url;
         this.endpoint = url;
         const isAuthenticated  = this.authenticationService.isAuthenticated();
-        if(!this.isEndpointLogin()){
+        if(!this.isEndpointLogin() &&  !this.isEndpointProfile()){
             this.renderer.removeClass(this.document.body, 'write-it-auth');
+            this.renderer.removeClass(this.document.body, 'write-it-profile');
             this.renderer.removeClass(this.document.getElementById('header'), 'header-auth');
             setTimeout(()=> this.authenticationService.setAuthentication(isAuthenticated),0); // notify to change action on menu  
         }
@@ -50,5 +52,9 @@ export class App implements OnInit {
 
   isEndpointLogin() {
     return this.endpoint === '/auth' || this.endpoint === "/auth/reset-password";
+  }
+
+  isEndpointProfile(){
+    return this.endpoint?.includes("/user/profile");
   }
 }

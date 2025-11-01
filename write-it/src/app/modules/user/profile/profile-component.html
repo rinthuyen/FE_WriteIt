@@ -1,1 +1,12 @@
-<p>profile-component works!</p>
+<div class="flex profile-management">
+    <div class="profile-menu write-it-menu">
+         <p-menu [model]="items"/>
+    </div>
+    <div style="background-color: var(--text-color); width: 3px;">
+    </div>
+     <div style="width: 100%; margin-left: 50px;">
+          <router-outlet />
+     </div>
+</div>
+
+ 
