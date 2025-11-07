@@ -1,0 +1,44 @@
+.edit-user-profile {
+  width: 500px;
+  .formEdit {
+    width: 500px;
+    border-top: 1px solid var(--input-border-color-dark);
+    border-bottom: 1px solid var(--input-border-color-dark);
+    padding-bottom: 50px;
+  }
+
+  .write-it-input {
+    background: var(--input-color-dark);
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    border: 1.5px solid var(--input-border-color-dark);
+    color: var(--text-color);
+  }
+
+  .click-input {
+    border: 1.5px solid var(--input-border-color-hightlight-dark);
+  }
+
+  .btn-submit-container {
+    .btn-submit {
+      ::ng-deep .p-button {
+        color: var(--text-color) !important;
+        border: 1.5px solid var(--input-border-color-dark) !important;
+        background: var(--input-color-dark) !important;
+      }
+
+      ::ng-deep .p-button:hover:enabled {
+        border: 1.5px solid var(--input-border-color-hightlight-dark) !important;
+      }
+    }
+    .btn-reset {
+      color: #f6f4ded8;
+      margin-top: 30px;
+    }
+    .btn-reset:hover {
+      color: var(--text-color);
+      cursor: pointer;
+    }
+  }
+}

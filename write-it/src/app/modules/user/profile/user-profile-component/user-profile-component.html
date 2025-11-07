@@ -1,0 +1,41 @@
+<div class="edit-user-profile">
+  <h1 class="title">Profiles</h1>
+  <div class="formEdit">
+    <form>
+      <div>
+        <h3 class="title">Display name</h3>
+        <input
+          class="write-it-input"
+          placeholder="Display name"
+          type="text"
+          pInputText
+          (click)="handleClickinside('displayName')"
+          writeItClickOutside
+          (clickOutside)="handleClickoutside('displayName')"
+          [class.click-input]="clickDisplayName"
+        />
+      </div>
+      <div>
+        <h3 class="title">Email</h3>
+        <input
+          class="write-it-input"
+          placeholder="Email"
+          type="text"
+          pInputText
+          (click)="handleClickinside('email')"
+          writeItClickOutside
+          (clickOutside)="handleClickoutside('email')"
+          [class.click-input]="clickEmail"
+        />
+      </div>
+    </form>
+  </div>
+  <div class="flex-end btn-submit-container">
+    <div class="btn-reset">
+      <span> Reset </span>
+    </div>
+    <div class="btn-submit">
+      <p-button label="Save changes" />
+    </div>
+  </div>
+</div>
