@@ -1,59 +1,63 @@
 <div class="login">
-    <p-toast />
-    <div class="title">
-        <span style="color: #02343F; font-size: 25px;">Write it !</span>
+  <p-toast />
+  <div class="title">
+    <span style="color: #02343f; font-size: 25px">Write it !</span>
+  </div>
+  <form [formGroup]="registerForm" class="flex-col gap-4 w-full sm:w-56">
+    <div class="input-container">
+      <input
+        class="write-it-input-login"
+        [class.click-input]="clickUsername"
+        placeholder="Username"
+        formControlName="username"
+        type="text"
+        pInputText
+        (click)="handleClickinside('username')"
+        writeItClickOutside
+        (clickOutside)="handleClickoutside('username')"
+      />
+      <write-it-print-error
+        [control]="registerForm.get('username')"
+      ></write-it-print-error>
+
+      <input
+        class="write-it-input-login"
+        [class.click-input]="clickPassword"
+        placeholder="Password"
+        formControlName="password"
+        type="text"
+        pInputText
+        (click)="handleClickinside('password')"
+        writeItClickOutside
+        (clickOutside)="handleClickoutside('password')"
+      />
+      <write-it-print-error
+        [control]="registerForm.get('password')"
+      ></write-it-print-error>
+      <input
+        class="write-it-input-login"
+        [class.click-input]="clickDisplayedName"
+        placeholder="Displayed name"
+        formControlName="displayedName"
+        type="text"
+        pInputText
+        (click)="handleClickinside('displayedName')"
+        writeItClickOutside
+        (clickOutside)="handleClickoutside('displayedName')"
+      />
+      <write-it-print-error
+        [control]="registerForm.get('displayedName')"
+      ></write-it-print-error>
     </div>
-    <form [formGroup]="registerForm" class="flex flex-col gap-4 w-full sm:w-56">
-        <div class="input-container">
-            <input class="write-it-input-login" [class.click-input]="clickUsername" placeholder="Username"
-                formControlName="username" type="text" pInputText [invalid]="isInvalid('username')"
-                (click)="handleClickinside('username')" writeItClickOutside
-                (clickOutside)="handleClickoutside('username')" />
-            @if (isInvalid('username')) {
-            @if (registerForm.get('username')?.errors?.['required']) {
-            <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
-            }
-            }
-            @if (registerForm.get('username')?.errors?.['error']) {
-            <p-message severity="error" size="small"
-                variant="simple">{{registerForm.get('username')?.errors?.['error']}}</p-message>
-            }
-
-            <input class="write-it-input-login" [class.click-input]="clickPassword" placeholder="Password"
-                formControlName="password" type="text" pInputText [invalid]="isInvalid('password')"
-                (click)="handleClickinside('password')" writeItClickOutside
-                (clickOutside)="handleClickoutside('password')" />
-            @if (isInvalid('password')) {
-            @if (registerForm.get('password')?.errors?.['required']) {
-            <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
-            }
-            }
-            @if (registerForm.get('password')?.errors?.['error']) {
-            <p-message severity="error" size="small"
-                variant="simple">{{registerForm.get('password')?.errors?.['error']}}</p-message>
-            }
-            <input class="write-it-input-login" [class.click-input]="clickDisplayedName" placeholder="Displayed name"
-                formControlName="displayedName" type="text" pInputText [invalid]="isInvalid('displayedName')"
-                (click)="handleClickinside('displayedName')" writeItClickOutside
-                (clickOutside)="handleClickoutside('displayedName')" />
-            @if (isInvalid('displayedName')) {
-            @if (registerForm.get('displayedName')?.errors?.['required']) {
-            <p-message severity="error" size="small" variant="simple">Displayed Name is required.</p-message>
-            }
-            }
-            @if (registerForm.get('displayedName')?.errors?.['error']) {
-            <p-message severity="error" size="small"
-                variant="simple">{{registerForm.get('displayedName')?.errors?.['error']}}</p-message>
-            }
-        </div>
-         <div class="btn-login-container">
-             <div class="btn-signup">
-                <p-button label="sign up" (click)="signup()" />
-            </div>
-            <div class="back-login">
-              <p style="color: #066c80;">Already have an account? <u (click)="backtoLogin()">login</u></p>
-            </div>
-        </div>
-    </form>
-
+    <div class="btn-login-container">
+      <div class="btn-signup">
+        <p-button label="sign up" (click)="signup()" />
+      </div>
+      <div class="back-login">
+        <p style="color: #066c80">
+          Already have an account? <u (click)="backtoLogin()">login</u>
+        </p>
+      </div>
+    </div>
+  </form>
 </div>

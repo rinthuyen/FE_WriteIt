@@ -1,0 +1,22 @@
+<div
+  *ngIf="
+    control?.invalid && control?.errors && (control?.dirty || control?.touched)
+  "
+>
+  <p-message
+    severity="error"
+    size="small"
+    variant="simple"
+    *ngIf="control.errors.required"
+  >
+    This field is required
+  </p-message>
+    <p-message
+    severity="error"
+    size="small"
+    variant="simple"
+    *ngIf="control.errors.error"
+  >
+   {{control.errors.error}}
+  </p-message>
+</div>

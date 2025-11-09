@@ -13,10 +13,11 @@ import { MessageService } from 'primeng/api';
 import { Toast } from 'primeng/toast';
 import { AppError } from '../../../utils/errors';
 import { AppNotify } from '../../../utils/notify';
+import { PrintErrorComponent } from '../../../shared/components/print-error/print-error-component';
 
 @Component({
   selector: 'write-it-register',
-  imports: [ButtonModule, InputTextModule, Button ,ReactiveFormsModule, MessageModule, ClickOutsideDirective, Toast],
+  imports: [ButtonModule, InputTextModule, Button ,ReactiveFormsModule, MessageModule, ClickOutsideDirective, Toast, PrintErrorComponent],
   providers: [MessageService],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
@@ -102,11 +103,6 @@ export class RegisterComponent implements OnInit {
       case this.DISPLAYEDNAME_FIELD:
         this.clickDisplayedName = false;
     }
-  }
-
-  isInvalid(controlName: string) {
-    const control = this.registerForm.get(controlName);
-    return control?.invalid && (control.touched || this.formSubmitted);
   }
 
   backtoLogin(){

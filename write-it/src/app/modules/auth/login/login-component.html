@@ -13,24 +13,13 @@
           formControlName="username"
           type="text"
           pInputText
-          [invalid]="isInvalid('username')"
           (click)="handleClickinside('username')"
           writeItClickOutside
           (clickOutside)="handleClickoutside('username')"
         />
-        @if (isInvalid('username')) { @if
-        (loginForm.get('username')?.errors?.['required']) {
-        <p-message severity="error" size="small" variant="simple"
-          >Username is required.</p-message
-        >
-        } } @if (loginForm.get('username')?.errors?.['error']) {
-        <p-message
-          severity="error"
-          size="small"
-          variant="simple"
-          >{{loginForm.get('username')?.errors?.['error']}}</p-message
-        >
-        }
+        <write-it-print-error
+          [control]="loginForm.get('username')"
+        ></write-it-print-error>
       </div>
 
       <div style="margin-top: 10px">
@@ -41,7 +30,6 @@
             formControlName="password"
             [type]="typeInputPassword"
             pInputText
-            [invalid]="isInvalid('password')"
             style="margin-top: 10px"
             [class.click-input]="clickPassword"
             (click)="handleClickinside('password')"
@@ -54,20 +42,9 @@
             (click)="showHidePassword()"
           />
         </p-iconfield>
-
-        @if (isInvalid('password')) { @if
-        (loginForm.get('password')?.errors?.['required']) {
-        <p-message severity="error" size="small" variant="simple"
-          >Password is required.</p-message
-        >
-        } @if (loginForm.get('password')?.errors?.['error']) {
-        <p-message
-          severity="error"
-          size="small"
-          variant="simple"
-          >{{loginForm.get('password')?.errors?.['error']}}</p-message
-        >
-        } }
+        <write-it-print-error
+          [control]="loginForm.get('password')"
+        ></write-it-print-error>
       </div>
     </div>
     <div class="forgot-password">

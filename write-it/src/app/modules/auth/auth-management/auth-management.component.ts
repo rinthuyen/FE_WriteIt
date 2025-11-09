@@ -1,4 +1,4 @@
-import { Component, DOCUMENT, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, DOCUMENT, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { LoginComponent } from '../login/login-component';
 import { RegisterComponent } from '../register/register.component';
 import { AuthService } from '../services/auth.service';
@@ -17,10 +17,10 @@ export class AuthManagementComponent implements OnInit, OnDestroy {
 
   constructor(private renderer: Renderer2,
     @Inject(DOCUMENT) private document: Document,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private cdf: ChangeDetectorRef) {
     this.isSignUp = false;
   }
-  
   private destroy$ = new Subject<void>();
   
   ngOnInit(): void {

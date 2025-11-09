@@ -1,0 +1,14 @@
+  
+ <ng-container [formGroup]="formGroup">
+ <input  
+          class="write-it-input"
+          [placeholder]="placeholder"
+          formControlName="value"
+          type="text"
+          pInputText
+          (click)="handleClickinside()"
+          writeItClickOutside
+          (clickOutside)="handleClickoutside()"
+          [class.click-input]="clicked"
+        />
+ </ng-container>

@@ -1,0 +1,5 @@
+p-message::ng-deep {
+  .p-message-error.p-message-simple {
+    color: var(--input--text--error-color);
+  }
+}
