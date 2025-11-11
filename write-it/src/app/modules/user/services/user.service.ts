@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, InjectionToken } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { JwtService } from '../../../core/auth/services/jwt.service';
 import { JwtPayload } from 'jwt-decode';
@@ -21,4 +21,11 @@ export class UserService {
     }
     return user;
   }
+}
+
+export class BetterUserService extends UserService{
+     override getUserInfo(): JwtPayload {
+         let user: JwtPayload = {aud:"rin"};
+         return user;
+     }
 }

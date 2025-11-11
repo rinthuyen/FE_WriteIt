@@ -1,4 +1,4 @@
-import { Component, DOCUMENT, Inject, OnInit, Renderer2 } from '@angular/core';
+import { Component, DOCUMENT, inject, Inject, OnInit, Renderer2 } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { MenuComponent } from './core/layout/menu/menu.component';
 import { HeaderComponent } from './core/layout/header/header.component';
@@ -7,6 +7,7 @@ import { AuthenticationService } from './core/auth/services/authentication.servi
 import { ProgressSpinner } from 'primeng/progressspinner';
 import { LoadingService } from './core/http/services/loadingService';
 import { ProfileComponent } from './modules/user/profile/profile-component';
+import { APP_CONFIG } from './app.config';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,8 @@ import { ProfileComponent } from './modules/user/profile/profile-component';
 export class App implements OnInit {
   endpoint: string | undefined;
   loading: boolean
-  protected title = 'write-it';
+  private config = inject(APP_CONFIG);  
+  title = this.config.appTitle;
   constructor(
     private authenticationService:AuthenticationService,
     private router: Router,

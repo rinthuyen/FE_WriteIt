@@ -9,7 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { PrintErrorComponent } from '../../../../shared/components/print-error/print-error-component';
-import { UserService } from '../../services/user.service';
+import { BetterUserService, UserService } from '../../services/user.service';
 import { UserProfile } from '../../models/ProfileUser.model';
 import {
   ApiResponse,
@@ -32,7 +32,9 @@ import { MessageModule } from 'primeng/message';
     PrintErrorComponent,
     Toast
   ],
-  providers: [MessageService],
+  providers: [
+    MessageService
+  ],
   templateUrl: './user-profile-component.html',
   styleUrl: './user-profile-component.scss',
 })
@@ -73,7 +75,7 @@ export class UserProfileComponent implements OnInit {
       email: [this.userProfile.email, [Validators.required, Validators.email]],
     });
   }
-  
+
   reset(){
     this.editProfileForm.get('displayName')?.setValue(this.userProfile.displayedName);
     this.editProfileForm.get('email')?.setValue(this.userProfile.email);
