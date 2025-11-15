@@ -1,7 +1,11 @@
 import {
   Component,
+  Inject,
+  inject,
+  InjectionToken,
+  Injector,
   OnInit,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -23,17 +27,16 @@ import {
 } from '../../../core/auth/models/authentication.model';
 import { AuthenticationService } from '../../../core/auth/services/authentication.service';
 import { JwtService } from '../../../core/auth/services/jwt.service';
-import {
-  ApiResponse,
-  ApiResponseError,
-} from '../../../core/http/models/ApiResponse.model';
+import { ApiResponse } from '../../../core/http/models/ApiResponse.model';
 import { STATUS_CODE } from '../../../core/http/models/statusCode.model';
 import { PrintErrorComponent } from '../../../shared/components/print-error/print-error-component';
 import { ClickOutsideDirective } from '../../../shared/directives/click-outside.directive';
-import { AppError } from '../../../utils/errors';
 import { AppNotify } from '../../../utils/notify';
 import { AuthService } from '../services/auth.service';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password-component';
+import { FORM_GROUP } from '../../../app.config';
+import { BehaviorSubject } from 'rxjs';
+import { BaseComponent } from '../../../shared/components/base-component';
 @Component({
   selector: 'write-it-login',
   imports: [
@@ -49,11 +52,10 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password-compo
     ForgotPasswordComponent,
     PrintErrorComponent,
   ],
-  providers: [MessageService],
   templateUrl: './login-component.html',
   styleUrl: './login-component.scss',
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent extends BaseComponent implements OnInit {
   @ViewChild('forgotpassword') forgotpassword: ForgotPasswordComponent | any;
   loginForm: FormGroup;
   formSubmitted = false;
@@ -65,17 +67,15 @@ export class LoginComponent implements OnInit {
   PASSWORD_FIELD = 'password';
   typeToast: 'Success' | 'Error' | undefined;
   typeSeverity: 'contrast' | 'success' | undefined;
-  notify: AppNotify;
   constructor(
     private authService: AuthService,
     private authenticationService: AuthenticationService,
     private jwtService: JwtService,
-    private messageService: MessageService,
     private router: Router,
     private fb: FormBuilder
   ) {
+    super();
     this.loginForm = new FormGroup({});
-    this.notify = new AppNotify(this.messageService);
   }
 
   ngOnInit(): void {
@@ -90,8 +90,10 @@ export class LoginComponent implements OnInit {
       username: this.loginForm.get('username')?.value,
       password: this.loginForm.get('password')?.value,
     };
-    this.authenticationService.login(loginModel).subscribe(
-      (res: ApiResponse) => {
+    this.sendFormGroup(this.loginForm);
+    this.authenticationService
+      .login(loginModel)
+      .subscribe((res: ApiResponse) => {
         if (res.status === STATUS_CODE.SUCCESS) {
           const jwt: JwtModel = res.data;
           this.jwtService.setToken(jwt.accessToken);
@@ -106,24 +108,7 @@ export class LoginComponent implements OnInit {
           );
           setTimeout(() => this.router.navigate(['/']), 500);
         }
-      },
-      (err: ApiResponseError) => {
-        const error = err.error;
-        switch (error.status) {
-          case STATUS_CODE.UN_AUTHORIZE:
-            this.typeToast = 'Error';
-            this.typeSeverity = 'contrast';
-            this.notify.toastMessage(
-              this.typeSeverity,
-              error.message ?? '',
-              this.typeToast
-            );
-            break;
-          case STATUS_CODE.BAD_REQUEST:
-            AppError.handleErrorMessageFormGroup(error, this.loginForm);
-        }
-      }
-    );
+      });
   }
 
   signup() {

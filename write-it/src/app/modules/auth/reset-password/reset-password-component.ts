@@ -1,4 +1,4 @@
-import { Component, DOCUMENT, Inject, OnInit, Renderer2 } from '@angular/core';
+import { Component, DOCUMENT, inject, Inject, OnInit, Renderer2 } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import {
   FormBuilder,
@@ -19,12 +19,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../../../core/auth/services/authentication.service';
 import { ResetPasswordModel } from '../../../core/auth/models/authentication.model';
 import {
-  ApiResponse,
-  ApiResponseError,
+  ApiResponse
 } from '../../../core/http/models/ApiResponse.model';
 import { STATUS_CODE } from '../../../core/http/models/statusCode.model';
-import { AppNotify } from '../../../utils/notify';
 import { PrintErrorComponent } from '../../../shared/components/print-error/print-error-component';
+import { BaseComponent } from '../../../shared/components/base-component';
 
 @Component({
   selector: 'write-it-reset-password-component',
@@ -40,11 +39,10 @@ import { PrintErrorComponent } from '../../../shared/components/print-error/prin
     InputIcon,
     PrintErrorComponent,
   ],
-  providers: [MessageService],
   templateUrl: './reset-password-component.html',
   styleUrl: './reset-password-component.scss',
 })
-export class ResetPasswordComponent implements OnInit {
+export class ResetPasswordComponent extends BaseComponent implements OnInit {
   formSubmitted = false;
   resetPasswordForm: FormGroup;
   clickPassword = false;
@@ -58,7 +56,6 @@ export class ResetPasswordComponent implements OnInit {
   token: string;
   typeToast: 'Success' | 'Error' | undefined;
   typeSeverity: 'contrast' | 'success' | undefined;
-  notify: AppNotify;
 
   constructor(
     private renderer: Renderer2,
@@ -67,11 +64,10 @@ export class ResetPasswordComponent implements OnInit {
     private authService: AuthService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router,
-    private messageService: MessageService
+    private router: Router
   ) {
+    super();
     this.resetPasswordForm = new FormGroup({});
-    this.notify = new AppNotify(this.messageService);
     this.token = this.route.snapshot.queryParams['token'] ?? '';
   }
 
@@ -96,6 +92,7 @@ export class ResetPasswordComponent implements OnInit {
       token: this.token,
       password: this.resetPasswordForm.get('password')?.value,
     };
+    this.sendFormGroup(this.resetPasswordForm);
     this.authenticationService.resetPassword(req).subscribe(
       (res: ApiResponse) => {
         if (res.status === STATUS_CODE.SUCCESS) {
@@ -107,22 +104,6 @@ export class ResetPasswordComponent implements OnInit {
             this.typeToast
           );
           setTimeout(() => this.router.navigate(['/auth']), 500);
-        }
-      },
-      (err: ApiResponseError) => {
-        const error = err.error;
-        switch (error.status) {
-          case STATUS_CODE.UN_AUTHORIZE:
-            this.typeToast = 'Error';
-            this.typeSeverity = 'contrast';
-            this.notify.toastMessage(
-              this.typeSeverity,
-              error.message ?? '',
-              this.typeToast
-            );
-            break;
-          case STATUS_CODE.BAD_REQUEST:
-            AppError.handleErrorMessageFormGroup(error, this.resetPasswordForm);
         }
       }
     );

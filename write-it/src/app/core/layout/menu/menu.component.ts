@@ -11,9 +11,12 @@ import { ToastModule } from 'primeng/toast';
 @Component({
     selector: 'write-it-menu',
     imports: [MenuModule, Button, CommonModule,ConfirmDialog,ToastModule],
-    providers: [ConfirmationService, MessageService],
+    providers: [
+        ConfirmationService,
+        MessageService
+    ],
     templateUrl: './menu.component.html',
-    styleUrl: './menu.component.scss'
+    styleUrl: './menu.component.scss',
 })
 
 export class MenuComponent implements OnInit {

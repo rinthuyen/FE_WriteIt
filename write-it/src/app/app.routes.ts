@@ -32,4 +32,11 @@ export const routes: Routes = [
       },
     ],
   },
+    {
+    path: 'dynamic',
+    loadComponent: () =>
+      import('./modules/demo-dynamic/demo-dynamic').then(
+        (m) => m.DemoDynamic
+      ),
+  },
 ];

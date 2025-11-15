@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Button } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { WriteItInputComponent } from '../../../../shared/components/input/input-component';
@@ -9,18 +9,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { PrintErrorComponent } from '../../../../shared/components/print-error/print-error-component';
-import { BetterUserService, UserService } from '../../services/user.service';
+import { UserService } from '../../services/user.service';
 import { UserProfile } from '../../models/ProfileUser.model';
-import {
-  ApiResponse,
-  ApiResponseError,
-} from '../../../../core/http/models/ApiResponse.model';
+import { ApiResponse } from '../../../../core/http/models/ApiResponse.model';
 import { STATUS_CODE } from '../../../../core/http/models/statusCode.model';
-import { AppError } from '../../../../utils/errors';
 import { AppNotify } from '../../../../utils/notify';
-import { MessageService } from 'primeng/api';
 import { Toast } from 'primeng/toast';
-import { MessageModule } from 'primeng/message';
+import { BaseComponent } from '../../../../shared/components/base-component';
 
 @Component({
   selector: 'write-it-user-profile',
@@ -30,28 +25,20 @@ import { MessageModule } from 'primeng/message';
     WriteItInputComponent,
     ReactiveFormsModule,
     PrintErrorComponent,
-    Toast
-  ],
-  providers: [
-    MessageService
+    Toast,
   ],
   templateUrl: './user-profile-component.html',
   styleUrl: './user-profile-component.scss',
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent extends BaseComponent implements OnInit {
   editProfileForm!: FormGroup;
   private _userProfile!: UserProfile;
 
   typeToast: 'Success' | 'Error' | undefined;
   typeSeverity: 'contrast' | 'success' | undefined;
-  notify: AppNotify;
 
-  constructor(
-    private fb: FormBuilder,
-    private userService: UserService,
-    private messageService: MessageService
-  ) {
-    this.notify = new AppNotify(this.messageService);
+  constructor(private fb: FormBuilder, private userService: UserService) {
+    super();
   }
 
   set userProfile(_userProfile: any) {
@@ -76,8 +63,10 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  reset(){
-    this.editProfileForm.get('displayName')?.setValue(this.userProfile.displayedName);
+  reset() {
+    this.editProfileForm
+      .get('displayName')
+      ?.setValue(this.userProfile.displayedName);
     this.editProfileForm.get('email')?.setValue(this.userProfile.email);
   }
 
@@ -89,8 +78,10 @@ export class UserProfileComponent implements OnInit {
       displayedName: displayedName,
       status: this.userProfile.status,
     };
-    this.userService.updateProfile(updateProfile).subscribe(
-      (res: ApiResponse) => {
+    this.sendFormGroup(this.editProfileForm);
+    this.userService
+      .updateProfile(updateProfile)
+      .subscribe((res: ApiResponse) => {
         if (res.status === STATUS_CODE.SUCCESS) {
           this.userProfile = this.userProfile;
           this.typeToast = 'Success';
@@ -101,23 +92,6 @@ export class UserProfileComponent implements OnInit {
             this.typeToast
           );
         }
-      },
-      (err: ApiResponseError) => {
-        const error = err.error;
-        switch (error.status) {
-          case STATUS_CODE.UN_AUTHORIZE:
-            this.typeToast = 'Error';
-            this.typeSeverity = 'contrast';
-            this.notify.toastMessage(
-              this.typeSeverity,
-              error.message ?? '',
-              this.typeToast
-            );
-            break;
-          case STATUS_CODE.BAD_REQUEST:
-            AppError.handleErrorMessageFormGroup(error, this.editProfileForm);
-        }
-      }
-    );
+      });
   }
 }

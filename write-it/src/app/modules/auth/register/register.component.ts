@@ -1,44 +1,55 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Button, ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { AuthService } from '../services/auth.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MessageModule } from 'primeng/message';
 import { ClickOutsideDirective } from '../../../shared/directives/click-outside.directive';
 import { RegisterModel } from '../../../core/auth/models/authentication.model';
 import { AuthenticationService } from '../../../core/auth/services/authentication.service';
-import { ApiResponse, ApiResponseError } from '../../../core/http/models/ApiResponse.model';
+import { ApiResponse } from '../../../core/http/models/ApiResponse.model';
 import { STATUS_CODE } from '../../../core/http/models/statusCode.model';
-import { MessageService } from 'primeng/api';
 import { Toast } from 'primeng/toast';
-import { AppError } from '../../../utils/errors';
-import { AppNotify } from '../../../utils/notify';
 import { PrintErrorComponent } from '../../../shared/components/print-error/print-error-component';
+import { BaseComponent } from '../../../shared/components/base-component';
 
 @Component({
   selector: 'write-it-register',
-  imports: [ButtonModule, InputTextModule, Button ,ReactiveFormsModule, MessageModule, ClickOutsideDirective, Toast, PrintErrorComponent],
-  providers: [MessageService],
+  imports: [
+    ButtonModule,
+    InputTextModule,
+    Button,
+    ReactiveFormsModule,
+    MessageModule,
+    ClickOutsideDirective,
+    Toast,
+    PrintErrorComponent,
+  ],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrl: './register.component.scss',
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent extends BaseComponent implements OnInit {
   registerForm: FormGroup | any;
   formSubmitted = false;
   clickUsername = false;
   clickPassword = false;
   clickDisplayedName = false;
-  USERNAME_FIELD = "username";
-  PASSWORD_FIELD = "password";
-  DISPLAYEDNAME_FIELD = "displayedName";
+  USERNAME_FIELD = 'username';
+  PASSWORD_FIELD = 'password';
+  DISPLAYEDNAME_FIELD = 'displayedName';
   typeToast: 'Success' | 'Error' | undefined;
   typeSeverity: 'contrast' | 'success' | undefined;
-  notify: AppNotify;
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private authenticationService: AuthenticationService,
-    private authenService: AuthService,
-    private messageService: MessageService) {
-    this.notify = new AppNotify(this.messageService);
+    private authenService: AuthService
+  ) {
+    super();
   }
 
   ngOnInit(): void {
@@ -46,37 +57,32 @@ export class RegisterComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required],
       displayedName: ['', Validators.required],
-    })
+    });
   }
 
   signup() {
     const registerModel: RegisterModel = {
       username: this.registerForm.get('username')?.value,
       password: this.registerForm.get('password')?.value,
-      displayedName: this.registerForm.get('displayedName')?.value
-    }
-    this.authenticationService.register(registerModel).subscribe((res: ApiResponse) => {
-      if (res.status === STATUS_CODE.SUCCESS) {
-        this.typeToast = 'Success';
-        this.typeSeverity = 'success';
-        this.notify.toastMessage(this.typeSeverity, res.message ?? "", this.typeToast)
-        setTimeout(() => {
-          this.authenService.setChangeFormSubject("login");
-        }, 1000);
-      }
-    }, (err: ApiResponseError) => {
-      const error = err.error;
-      switch (error.status) {
-        case STATUS_CODE.UN_AUTHORIZE:
-        case STATUS_CODE.CONFLICT:
-          this.typeToast = 'Error';
-          this.typeSeverity = 'contrast';
-          this.notify.toastMessage(this.typeSeverity, error.message ?? "", this.typeToast)
-          break;
-        case STATUS_CODE.BAD_REQUEST:
-          AppError.handleErrorMessageFormGroup(error, this.registerForm);
-      }
-    })
+      displayedName: this.registerForm.get('displayedName')?.value,
+    };
+    this.sendFormGroup(this.registerForm); 
+    this.authenticationService
+      .register(registerModel)
+      .subscribe((res: ApiResponse) => {
+        if (res.status === STATUS_CODE.SUCCESS) {
+          this.typeToast = 'Success';
+          this.typeSeverity = 'success';
+          this.notify.toastMessage(
+            this.typeSeverity,
+            res.message ?? '',
+            this.typeToast
+          );
+          setTimeout(() => {
+            this.authenService.setChangeFormSubject('login');
+          }, 1000);
+        }
+      });
   }
 
   handleClickinside(type: string) {
@@ -105,7 +111,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  backtoLogin(){
-  this.authenService.setChangeFormSubject("login");
+  backtoLogin() {
+    this.authenService.setChangeFormSubject('login');
   }
 }

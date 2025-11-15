@@ -22,10 +22,3 @@ export class UserService {
     return user;
   }
 }
-
-export class BetterUserService extends UserService{
-     override getUserInfo(): JwtPayload {
-         let user: JwtPayload = {aud:"rin"};
-         return user;
-     }
-}
