@@ -3,7 +3,7 @@
   <div class="title">
     <span style="color: #02343f; font-size: 25px; width: 100%">Write it !</span>
   </div>
-  <form [formGroup]="loginForm">
+  <form [formGroup]="fg">
     <div class="input-container">
       <div style="margin-top: 10px">
         <input
@@ -18,7 +18,7 @@
           (clickOutside)="handleClickoutside('username')"
         />
         <write-it-print-error
-          [control]="loginForm.get('username')"
+          [control]="fg.get('username')"
         ></write-it-print-error>
       </div>
 
@@ -43,7 +43,7 @@
           />
         </p-iconfield>
         <write-it-print-error
-          [control]="loginForm.get('password')"
+          [control]="fg.get('password')"
         ></write-it-print-error>
       </div>
     </div>
@@ -58,7 +58,7 @@
         <p-button
           label="log in"
           (click)="login()"
-          [disabled]="loginForm.invalid"
+          [disabled]="fg.invalid"
         />
       </div>
       <div class="btn-signup">

@@ -8,17 +8,6 @@ export interface ApiResponse{
     metadata:{}
 }
 
-export interface ApiResponseError{
-    error:{
-    status:number,
-    data?:any,
-    message?:string,
-    metadata:{
-        errors:any
-    }
-    }
-}
-
 export interface ServerErrorResponse{
     status:ERROR_CODE,
     data?:any,

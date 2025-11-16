@@ -34,7 +34,6 @@ import { BaseComponent } from '../../../shared/components/base-component';
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent extends BaseComponent implements OnInit {
-  registerForm: FormGroup | any;
   formSubmitted = false;
   clickUsername = false;
   clickPassword = false;
@@ -53,20 +52,18 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.registerForm = this.fb.group({
+    this.fg = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
       displayedName: ['', Validators.required],
     });
   }
-
-  signup() {
-    const registerModel: RegisterModel = {
-      username: this.registerForm.get('username')?.value,
-      password: this.registerForm.get('password')?.value,
-      displayedName: this.registerForm.get('displayedName')?.value,
+ protected override setUpCallService(): void {
+      const registerModel: RegisterModel = {
+      username: this.fg.get('username')?.value,
+      password: this.fg.get('password')?.value,
+      displayedName: this.fg.get('displayedName')?.value,
     };
-    this.sendFormGroup(this.registerForm); 
     this.authenticationService
       .register(registerModel)
       .subscribe((res: ApiResponse) => {
@@ -83,6 +80,9 @@ export class RegisterComponent extends BaseComponent implements OnInit {
           }, 1000);
         }
       });
+ }
+  signup() {
+     this.submit();
   }
 
   handleClickinside(type: string) {

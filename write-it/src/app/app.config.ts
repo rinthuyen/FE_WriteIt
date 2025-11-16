@@ -18,6 +18,11 @@ import { MessageService } from 'primeng/api';
 import { ErrorHandlerInterceptor } from './core/interceptors/errorHandler.interceptor';
 import { FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
+import { provideState, provideStore } from '@ngrx/store';
+import { storeFeature } from './modules/auth/store/feature';
+import { provideEffects } from '@ngrx/effects';
+import { AuthEffect } from './modules/auth/store/effect';
+import { JwtService } from './core/auth/services/jwt.service';
 
 export interface AppConfig {
   apiUrl: string;
@@ -35,6 +40,9 @@ const appConfigDevelopment: AppConfig = {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideStore(),
+    provideState(storeFeature),
+    provideEffects(AuthEffect),
     MessageService,
     AppNotify,
     { provide: APP_CONFIG, useValue: appConfigDevelopment },

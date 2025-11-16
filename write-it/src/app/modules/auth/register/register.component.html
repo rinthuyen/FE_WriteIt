@@ -3,7 +3,7 @@
   <div class="title">
     <span style="color: #02343f; font-size: 25px">Write it !</span>
   </div>
-  <form [formGroup]="registerForm" class="flex-col gap-4 w-full sm:w-56">
+  <form [formGroup]="fg" class="flex-col gap-4 w-full sm:w-56">
     <div class="input-container">
       <input
         class="write-it-input-login"
@@ -17,7 +17,7 @@
         (clickOutside)="handleClickoutside('username')"
       />
       <write-it-print-error
-        [control]="registerForm.get('username')"
+        [control]="fg.get('username')"
       ></write-it-print-error>
 
       <input
@@ -32,7 +32,7 @@
         (clickOutside)="handleClickoutside('password')"
       />
       <write-it-print-error
-        [control]="registerForm.get('password')"
+        [control]="fg.get('password')"
       ></write-it-print-error>
       <input
         class="write-it-input-login"
@@ -46,7 +46,7 @@
         (clickOutside)="handleClickoutside('displayedName')"
       />
       <write-it-print-error
-        [control]="registerForm.get('displayedName')"
+        [control]="fg.get('displayedName')"
       ></write-it-print-error>
     </div>
     <div class="btn-login-container">
